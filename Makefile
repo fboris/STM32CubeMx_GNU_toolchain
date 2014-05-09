@@ -15,7 +15,7 @@ GDB=arm-none-eabi-gdb
 CFLAGS=-g -mlittle-endian -mthumb
 CFLAGS+=-mcpu=cortex-m4
 CFLAGS+=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
-CFLAGS+=-ffreestanding -nostdlib -Wall
+CFLAGS+=-ffreestanding -Wall
 CFLAGS+=-Wl,-T,STM32F429ZI_FLASH.ld
 CFLAGS+=-mlong-calls 
 CFLAGS+=--specs=nano.specs --specs=nosys.specs
