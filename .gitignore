@@ -9,3 +9,4 @@ cscope*
 *.swo
 *.gch
 *.*~
+*.a

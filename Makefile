@@ -12,6 +12,10 @@ GDB=arm-none-eabi-gdb
 
 #============================================================================#
 
+CMSIS=./Drivers/CMSIS
+
+ST=./Drivers/STM32F4xx_HAL_Driver
+
 CFLAGS=-g -mlittle-endian -mthumb
 CFLAGS+=-mcpu=cortex-m4
 CFLAGS+=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
@@ -28,28 +32,15 @@ CFLAGS+= \
         
         
 LDFLAGS+= \
+	-L$(ST)/Build -lSTM32F4_CUBE\
 	-lm -lc -lgcc
 
 ARCH=CM4F
 
 #============================================================================#
 
-CMSIS=./Drivers/CMSIS
 
-ST=./Drivers/STM32F4xx_HAL_Driver
 
-# FREERTOS=./lib/FreeRTOS
-# FATFS=./lib/fatfs
-
-# MAVLINK=./lib/mavlink
-
-# CONFIG=./config
-# COMMON=./common
-# ALGORITHM=./algorithm
-# DRIVER=./driver
-# SYSTEM=./system
-# SHELL_=./shell
-# DEBUG=./debug
 
 #============================================================================#
 
@@ -67,24 +58,8 @@ CFLAGS+=-I$(CMSIS)/Device/ST/STM32F4xx/Include
 STARTUP=$(CMSIS)/Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f429xx.s
 
 SRC=\
-	$(CMSIS)/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c \
-	$(ST)/Src/stm32f4xx_hal.c \
-	$(ST)/Src/stm32f4xx_hal_cortex.c \
-	$(ST)/Src/stm32f4xx_hal_dma.c \
-	$(ST)/Src/stm32f4xx_hal_dma_ex.c \
-	$(ST)/Src/stm32f4xx_hal_flash.c \
-	$(ST)/Src/stm32f4xx_hal_flash_ex.c \
-	$(ST)/Src/stm32f4xx_hal_gpio.c \
-	$(ST)/Src/stm32f4xx_hal_i2c.c \
-	$(ST)/Src/stm32f4xx_hal_i2c_ex.c \
-	$(ST)/Src/stm32f4xx_hal_ltdc.c \
-	$(ST)/Src/stm32f4xx_hal_pwr.c \
-	$(ST)/Src/stm32f4xx_hal_pwr_ex.c \
-	$(ST)/Src/stm32f4xx_hal_rcc.c \
-	$(ST)/Src/stm32f4xx_hal_rcc_ex.c \
-	$(ST)/Src/stm32f4xx_hal_sdram.c \
-	$(ST)/Src/stm32f4xx_hal_spi.c \
-	$(ST)/Src/stm32f4xx_ll_fmc.c
+	$(CMSIS)/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c
+
 
 SRC +=./Src/main.c \
 	./Src/i2c.c \
