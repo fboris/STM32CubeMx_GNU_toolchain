@@ -87,7 +87,10 @@ $(STARTUP_OBJ): $(STARTUP)
 $(EXECUTABLE):$(SRC) $(STARTUP_OBJ)
 	@$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
 	@echo '    CC $(EXECUTABLE)'
-
+libSTM32F4_CUBE:
+	$(MAKE) -C $(ST)/Build
+clean_libSTM32F4_CUBE:
+	$(MAKE) -C $(ST)/Build clean
 #Make clean
 clean:
 	rm -rf $(STARTUP_OBJ)
