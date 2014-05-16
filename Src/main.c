@@ -1,7 +1,7 @@
 /**
   ******************************************************************************
   * File Name          : main.c
-  * Date               : 09/05/2014 13:00:47
+  * Date               : 12/05/2014 11:11:52
   * Description        : Main program body
   ******************************************************************************
   *
@@ -33,32 +33,33 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-#include "stm32f429xx.h"
 #include "stm32f4xx_hal.h"
 #include "fmc.h"
 #include "i2c.h"
 #include "ltdc.h"
 #include "spi.h"
+#include "tim.h"
 #include "usb_otg.h"
 #include "gpio.h"
 
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN 0 */
-
+void delay(uint32_t delay_count)
+{
+  uint32_t cnt = delay_count;
+  while (cnt) cnt--;
+}
 /* USER CODE END 0 */
 
 /* Private function prototypes -----------------------------------------------*/
 static void SystemClock_Config(void);
-void delay(uint32_t delay_count)
-{
-  while (delay_count) delay_count--;
-}
+
 int main(void)
 {
-#pragma message "Compiling main in " __FILE__ "..."
-  /* USER CODE BEGIN 1 */
 
+  /* USER CODE BEGIN 1 */
+  #pragma message "Compiling main in " __FILE__ "..."
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
@@ -75,6 +76,7 @@ int main(void)
   MX_I2C3_Init();
   MX_LTDC_Init();
   MX_SPI5_Init();
+  MX_TIM9_Init();
   MX_USB_OTG_HS_USB_Init();
 
   /* USER CODE BEGIN 2 */
@@ -85,12 +87,15 @@ int main(void)
   /* Infinite loop */
   while (1)
   {
-    uint32_t i,j;
+    
+    delay(5000000);
     HAL_GPIO_TogglePin(GPIOG, GPIO_PIN_13|GPIO_PIN_14);
     delay(5000000);
+
   }
+	return 0;
   /* USER CODE END 3 */
-  return 0;
+  
 }
 
 /** System Clock Configuration
