@@ -1,5 +1,5 @@
 #MicroXplorer Configuration settings - do not modify
-#Fri May 09 13:00:45 CST 2014
+#Fri May 16 23:19:32 CST 2014
 File.Version=3
 KeepUserPlacement=true
 Mcu.Family=STM32F4
@@ -689,15 +689,15 @@ ProjectManager.KeepUserCode=true
 ProjectManager.LastFirmware=true
 ProjectManager.LibraryCopy=0
 ProjectManager.ProjectBuild=false
-ProjectManager.ProjectFileName=TrueStudio.ioc
-ProjectManager.ProjectName=TrueStudio
+ProjectManager.ProjectFileName=firmware.ioc
+ProjectManager.ProjectName=firmware
 ProjectManager.TargetToolchain=TrueSTUDIO 4.3.1
 RCC.APB1CLKDivider=RCC_HCLK_DIV4
 RCC.APB2CLKDivider=RCC_HCLK_DIV2
 RCC.FamilyName=M
 RCC.HSE_VALUE=8000000
 RCC.HSI_VALUE=16000000
-RCC.IPParameters=APB2TimFreq_Value,FCLKCortexFreq_Value,AHBFreq_Value,APB2Freq_Value,PLLM,PLLN,48MHZClocksFreq_Value,RTCFreq_Value,I2SClocksFreq_Value,CortexFreq_Value,APB2CLKDivider,HSI_VALUE,PLLCLKFreq_Value,FamilyName,APB1TimFreq_Value,RTCHSEDivFreq_Value,EthernetFreq_Value,VCOInputFreq_Value,SYSCLKFreq_VALUE,HCLKFreq_Value,PLLSource,VCOI2SOutputFreq_Value,VCOSAIOutputFreq_Value,LSI_VALUE,APB1Freq_Value,APB1CLKDivider,HSE_VALUE,LSE_VALUE,PLLQ,VCOOutputFreq_Value,SYSCLKSource,MCO2PinFreq_Value
+RCC.IPParameters=APB2TimFreq_Value,AHBFreq_Value,APB2Freq_Value,PLLM,PLLN,48MHZClocksFreq_Value,RTCFreq_Value,I2SClocksFreq_Value,CortexFreq_Value,APB2CLKDivider,HSI_VALUE,PLLCLKFreq_Value,FamilyName,APB1TimFreq_Value,RTCHSEDivFreq_Value,EthernetFreq_Value,VCOInputFreq_Value,SYSCLKFreq_VALUE,HCLKFreq_Value,PLLSource,VCOI2SOutputFreq_Value,VCOSAIOutputFreq_Value,LSI_VALUE,APB1Freq_Value,APB1CLKDivider,HSE_VALUE,LSE_VALUE,PLLQ,SYSCLKSource,VCOOutputFreq_Value,MCO2PinFreq_Value
 RCC.LSE_VALUE=32768
 RCC.LSI_VALUE=32000
 RCC.PLLM=8
