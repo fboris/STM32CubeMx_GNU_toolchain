@@ -11,18 +11,20 @@ OBJCOPY=arm-none-eabi-objcopy
 GDB=arm-none-eabi-gdb
 CMSIS=./Drivers/CMSIS
 ST=./Drivers/STM32F4xx_HAL_Driver
+CHIP_ID=STM32F429xx
+OPT=0
 #============================================================================#
 
-CFLAGS=-g -mlittle-endian -mthumb
+CFLAGS=-O${OPT} -g -mlittle-endian -mthumb
 CFLAGS+=-mcpu=cortex-m4
 CFLAGS+=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 CFLAGS+=-ffreestanding -Wall
-CFLAGS+=-Wl,-T,STM32F429ZI_FLASH.ld
+CFLAGS+=-Wl,-T,./Projects/TrueSTUDIO/TrueStudio\ Configuration/STM32F429ZI_FLASH.ld
 CFLAGS+=-mlong-calls 
 CFLAGS+=--specs=nano.specs --specs=nosys.specs
 
 CFLAGS+= \
-	-D STM32F429xx \
+	-D $(CHIP_ID) \
 	-D USE_HAL_DRIVER \
 	-D "__weak = __attribute__((weak))" \
 	-D "__packed = __attribute__((__packed__))"
@@ -54,7 +56,8 @@ SRC +=./Src/main.c \
 	./Src/ltdc.c \
 	./Src/spi.c \
 	./Src/stm32f4xx_it.c \
-	./Src/usb_otg.c
+	./Src/usb_otg.c \
+	./Src/tim.c
 #============================================================================#
 
 #Make all
