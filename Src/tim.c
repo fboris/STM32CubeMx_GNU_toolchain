@@ -1,9 +1,9 @@
 /**
   ******************************************************************************
-  * File Name          : USB_OTG.c
+  * File Name          : TIM.c
   * Date               : 12/05/2014 11:11:51
   * Description        : This file provides code for the configuration
-  *                      of the USB_OTG instances.
+  *                      of the TIM instances.
   ******************************************************************************
   *
   * COPYRIGHT(c) 2014 STMicroelectronics
@@ -34,7 +34,7 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-#include "usb_otg.h"
+#include "tim.h"
 
 #include "gpio.h"
 
@@ -42,11 +42,69 @@
 
 /* USER CODE END 0 */
 
-/* USB_OTG_HS init function */
+TIM_HandleTypeDef htim9;
 
-void MX_USB_OTG_HS_USB_Init(void)
+/* TIM9 init function */
+void MX_TIM9_Init(void)
 {
 
+  TIM_OC_InitTypeDef sConfigOC;
+
+  htim9.Instance = TIM9;
+  htim9.Init.Prescaler = 0;
+  htim9.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim9.Init.Period = 0;
+  htim9.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  HAL_TIM_PWM_Init(&htim9);
+
+  sConfigOC.OCMode = TIM_OCMODE_PWM1;
+  sConfigOC.Pulse = 0;
+  sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+  sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+  HAL_TIM_PWM_ConfigChannel(&htim9, &sConfigOC, TIM_CHANNEL_1);
+
+  HAL_TIM_PWM_ConfigChannel(&htim9, &sConfigOC, TIM_CHANNEL_2);
+
+}
+
+void HAL_TIM_PWM_MspInit(TIM_HandleTypeDef* htim_pwm)
+{
+
+  GPIO_InitTypeDef GPIO_InitStruct;
+  if(htim_pwm->Instance==TIM9)
+  {
+    /* Peripheral clock enable */
+    __TIM9_CLK_ENABLE();
+  
+    /**TIM9 GPIO Configuration    
+    PE5     ------> TIM9_CH1
+    PE6     ------> TIM9_CH2 
+    */
+    GPIO_InitStruct.Pin = GPIO_PIN_5|GPIO_PIN_6;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_LOW;
+    GPIO_InitStruct.Alternate = GPIO_AF3_TIM9;
+    HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
+
+  }
+}
+
+void HAL_TIM_PWM_MspDeInit(TIM_HandleTypeDef* htim_pwm)
+{
+
+  if(htim_pwm->Instance==TIM9)
+  {
+    /* Peripheral clock disable */
+    __TIM9_CLK_DISABLE();
+  
+    /**TIM9 GPIO Configuration    
+    PE5     ------> TIM9_CH1
+    PE6     ------> TIM9_CH2 
+    */
+    HAL_GPIO_DeInit(GPIOE, GPIO_PIN_5|GPIO_PIN_6);
+
+  }
 } 
 
 /**

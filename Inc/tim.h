@@ -1,9 +1,9 @@
 /**
   ******************************************************************************
-  * File Name          : USB_OTG.c
+  * File Name          : TIM.h
   * Date               : 12/05/2014 11:11:51
   * Description        : This file provides code for the configuration
-  *                      of the USB_OTG instances.
+  *                      of the TIM instances.
   ******************************************************************************
   *
   * COPYRIGHT(c) 2014 STMicroelectronics
@@ -32,22 +32,24 @@
   *
   ******************************************************************************
   */
+/* Define to prevent recursive inclusion -------------------------------------*/
+#ifndef __tim_H
+#define __tim_H
+#ifdef __cplusplus
+ extern "C" {
+#endif
 
 /* Includes ------------------------------------------------------------------*/
-#include "usb_otg.h"
+#include "stm32f4xx_hal.h"
 
-#include "gpio.h"
+extern TIM_HandleTypeDef htim9;
 
-/* USER CODE BEGIN 0 */
+void MX_TIM9_Init(void);
 
-/* USER CODE END 0 */
-
-/* USB_OTG_HS init function */
-
-void MX_USB_OTG_HS_USB_Init(void)
-{
-
-} 
+#ifdef __cplusplus
+}
+#endif
+#endif /*__ tim_H */
 
 /**
   * @}

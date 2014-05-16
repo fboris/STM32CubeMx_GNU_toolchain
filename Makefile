@@ -9,12 +9,9 @@ BIN_IMAGE=$(PROJECT).bin
 CC=arm-none-eabi-gcc
 OBJCOPY=arm-none-eabi-objcopy
 GDB=arm-none-eabi-gdb
-
-#============================================================================#
-
 CMSIS=./Drivers/CMSIS
-
 ST=./Drivers/STM32F4xx_HAL_Driver
+#============================================================================#
 
 CFLAGS=-g -mlittle-endian -mthumb
 CFLAGS+=-mcpu=cortex-m4
@@ -38,22 +35,11 @@ LDFLAGS+= \
 ARCH=CM4F
 
 #============================================================================#
-
-
-
-
-#============================================================================#
-
 CFLAGS+=-I./
 CFLAGS+=-I./Inc
 CFLAGS+=-I$(ST)/Inc
 CFLAGS+=-I$(CMSIS)/Include
 CFLAGS+=-I$(CMSIS)/Device/ST/STM32F4xx/Include
-
-
-# SRC+=$(CMSIS)/system_stm32f4xx.c \
-# 	$(CMSIS)/FastMathFunctions/arm_cos_f32.c \
-# 	$(CMSIS)/FastMathFunctions/arm_sin_f32.c
 
 STARTUP=$(CMSIS)/Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f429xx.s
 
@@ -120,4 +106,4 @@ astyle:
 	astyle -r --exclude=lib  *.c *.h
 #============================================================================#
 
-.PHONY:all clean flash openocd gdbauto gdbtui cgdb astyle
+.PHONY:all clean flash openocd gdbauto gdbtui cgdb astyle libSTM32F4_CUBE clean_libSTM32F4_CUBE
