@@ -9,8 +9,8 @@ BIN_IMAGE=$(PROJECT).bin
 CC=arm-none-eabi-gcc
 OBJCOPY=arm-none-eabi-objcopy
 GDB=arm-none-eabi-gdb
-CMSIS=./Drivers/CMSIS
-ST=./Drivers/STM32F4xx_HAL_Driver
+CMSIS=./${PROJECT}/Drivers/CMSIS
+ST=./${PROJECT}/Drivers/STM32F4xx_HAL_Driver
 #board definition
 CHIP_ID=STM32F429
 SUB_ID=ZI
@@ -22,7 +22,7 @@ CFLAGS=-O${OPT} -g -mlittle-endian -mthumb
 CFLAGS+=-mcpu=cortex-m4
 CFLAGS+=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 CFLAGS+=-ffreestanding -Wall
-CFLAGS+=-Wl,-T,./Projects/TrueSTUDIO/${PROJECT}\ Configuration/${CHIP_ID}${SUB_ID}_FLASH.ld
+CFLAGS+=-Wl,-T,./${PROJECT}/Projects/TrueSTUDIO/${PROJECT}\ Configuration/${CHIP_ID}${SUB_ID}_FLASH.ld
 CFLAGS+=-mlong-calls 
 CFLAGS+=--specs=nano.specs --specs=nosys.specs
 
@@ -40,8 +40,8 @@ LDFLAGS+= \
 ARCH=CM4F
 
 #============================================================================#
-CFLAGS+=-I./
-CFLAGS+=-I./Inc
+CFLAGS+=-I./${PROJECT}/
+CFLAGS+=-I./${PROJECT}/Inc
 CFLAGS+=-I$(ST)/Inc
 CFLAGS+=-I$(CMSIS)/Include
 CFLAGS+=-I$(CMSIS)/Device/ST/STM32F4xx/Include
@@ -52,15 +52,15 @@ SRC=\
 	$(CMSIS)/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c
 
 
-SRC +=./Src/main.c \
-	./Src/i2c.c \
-	./Src/fmc.c \
-	./Src/gpio.c \
-	./Src/ltdc.c \
-	./Src/spi.c \
-	./Src/stm32f4xx_it.c \
-	./Src/usb_otg.c \
-	./Src/tim.c
+SRC +=./${PROJECT}/Src/main.c \
+	./${PROJECT}/Src/i2c.c \
+	./${PROJECT}/Src/fmc.c \
+	./${PROJECT}/Src/gpio.c \
+	./${PROJECT}/Src/ltdc.c \
+	./${PROJECT}/Src/spi.c \
+	./${PROJECT}/Src/stm32f4xx_it.c \
+	./${PROJECT}/Src/usb_otg.c \
+	./${PROJECT}/Src/tim.c
 #============================================================================#
 
 #Make all
