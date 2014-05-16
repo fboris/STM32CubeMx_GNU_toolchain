@@ -34,7 +34,7 @@ CFLAGS+= \
         
         
 LDFLAGS+= \
-	-L$(ST)/Build -lSTM32F4_CUBE\
+	-L./Build -lSTM32F4_CUBE\
 	-lm -lc -lgcc
 
 ARCH=CM4F
@@ -80,9 +80,9 @@ $(EXECUTABLE):$(SRC) $(STARTUP_OBJ)
 	@$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
 	@echo '    CC $(EXECUTABLE)'
 libSTM32F4_CUBE:
-	$(MAKE) -C $(ST)/Build
+	$(MAKE) -C ./Build
 clean_libSTM32F4_CUBE:
-	$(MAKE) -C $(ST)/Build clean
+	$(MAKE) -C ./Build clean
 #Make clean
 clean:
 	rm -rf $(STARTUP_OBJ)
