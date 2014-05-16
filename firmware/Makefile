@@ -11,7 +11,10 @@ OBJCOPY=arm-none-eabi-objcopy
 GDB=arm-none-eabi-gdb
 CMSIS=./Drivers/CMSIS
 ST=./Drivers/STM32F4xx_HAL_Driver
-CHIP_ID=STM32F429xx
+#board definition
+CHIP_ID=STM32F429
+SUB_ID=ZI
+STARTUP_NAME=startup_stm32f429xx
 OPT=0
 #============================================================================#
 
@@ -19,12 +22,12 @@ CFLAGS=-O${OPT} -g -mlittle-endian -mthumb
 CFLAGS+=-mcpu=cortex-m4
 CFLAGS+=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 CFLAGS+=-ffreestanding -Wall
-CFLAGS+=-Wl,-T,./Projects/TrueSTUDIO/${PROJECT}\ Configuration/STM32F429ZI_FLASH.ld
+CFLAGS+=-Wl,-T,./Projects/TrueSTUDIO/${PROJECT}\ Configuration/${CHIP_ID}${SUB_ID}_FLASH.ld
 CFLAGS+=-mlong-calls 
 CFLAGS+=--specs=nano.specs --specs=nosys.specs
 
 CFLAGS+= \
-	-D $(CHIP_ID) \
+	-D ${CHIP_ID}xx \
 	-D USE_HAL_DRIVER \
 	-D "__weak = __attribute__((weak))" \
 	-D "__packed = __attribute__((__packed__))"
@@ -43,7 +46,7 @@ CFLAGS+=-I$(ST)/Inc
 CFLAGS+=-I$(CMSIS)/Include
 CFLAGS+=-I$(CMSIS)/Device/ST/STM32F4xx/Include
 
-STARTUP=$(CMSIS)/Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f429xx.s
+STARTUP=$(CMSIS)/Device/ST/STM32F4xx/Source/Templates/gcc/${STARTUP_NAME}.s
 
 SRC=\
 	$(CMSIS)/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c
