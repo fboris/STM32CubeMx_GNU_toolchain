@@ -70,7 +70,7 @@ $(BIN_IMAGE):$(EXECUTABLE)
 	@$(OBJCOPY) -O binary $^ $@
 	@echo '    OBJCOPY $(BIN_IMAGE)'
 
-STARTUP_OBJ = startup_stm32f429xx.o
+STARTUP_OBJ = ${STARTUP_NAME}.o
 
 $(STARTUP_OBJ): $(STARTUP)
 	@$(CC) $(CFLAGS) $^ -c $(STARTUP)
