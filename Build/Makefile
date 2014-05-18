@@ -17,7 +17,7 @@ CFLAGS+=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 CFLAGS+=-ffreestanding -Wall
 CFLAGS+=-mlong-calls 
 CFLAGS+=-nostdlib
-CFLAGS+=-O1
+CFLAGS+=-O0
 
 CFLAGS+=-I$(ST)/Inc
 CFLAGS+=-I$(CMSIS)/Include

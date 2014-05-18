@@ -44,11 +44,14 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN 0 */
-void delay(uint32_t delay_count)
+#pragma GCC push_options
+#pragma GCC optimize ("O0")
+__attribute__((optimize("O0"))) void delay(uint32_t delay_count)
 {
-  uint32_t cnt = delay_count;
-  while (cnt) cnt--;
+  //uint32_t cnt = delay_count;
+  while (delay_count) delay_count--;
 }
+#pragma GCC pop_options
 /* USER CODE END 0 */
 
 /* Private function prototypes -----------------------------------------------*/

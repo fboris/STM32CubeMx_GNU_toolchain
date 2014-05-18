@@ -15,7 +15,7 @@ ST=./${PROJECT}/Drivers/STM32F4xx_HAL_Driver
 CHIP_ID=STM32F429
 SUB_ID=ZI
 STARTUP_NAME=startup_stm32f429xx
-OPT=0
+OPT=1
 #============================================================================#
 
 CFLAGS=-O${OPT} -g -mlittle-endian -mthumb
