@@ -9,19 +9,18 @@ ST=../${PROJECT}/Drivers/STM32F4xx_HAL_Driver
 include ../mks/board.mk
 #============================================================================
 
-CFLAGS=-g -mlittle-endian -mthumb
-CFLAGS+=-mcpu=cortex-m4
-CFLAGS+=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
-CFLAGS+=-ffreestanding -Wall
-CFLAGS+=-mlong-calls 
-CFLAGS+=-nostdlib
-CFLAGS+=-O1
-
-CFLAGS+=-I$(ST)/Inc
-CFLAGS+=-I$(CMSIS)/Include
-CFLAGS+=-I$(CMSIS)/Device/ST/STM32F4xx/Include
-CFLAGS+=-I../${PROJECT}/Inc
-CFLAGS+= \
+CFLAGS=-g -mlittle-endian -mthumb \
+	-mcpu=cortex-m4 \
+	-mfpu=fpv4-sp-d16 -mfloat-abi=hard \
+	-ffreestanding -Wall\
+	-mlong-calls \
+	-nostdlib \
+	-O1 \
+	-I$(ST)/Inc \
+	-I$(CMSIS)/Include \
+	-I$(CMSIS)/Device/ST/STM32F4xx/Include \
+	-I../${PROJECT}/Inc \
+ 	\
 	-D ${CHIP_ID}xx \
 	-D USE_HAL_DRIVER
 SRCS = \

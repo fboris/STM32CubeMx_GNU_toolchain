@@ -12,21 +12,28 @@ GDB=arm-none-eabi-gdb
 CMSIS=./${PROJECT}/Drivers/CMSIS
 ST=./${PROJECT}/Drivers/STM32F4xx_HAL_Driver
 OPT=0
-#============================================================================#
-include mks/board.mk
-CFLAGS=-O${OPT} -g -mlittle-endian -mthumb
-CFLAGS+=-mcpu=cortex-m4
-CFLAGS+=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
-CFLAGS+=-ffreestanding -Wall
-CFLAGS+=-Wl,-T,./${PROJECT}/Projects/TrueSTUDIO/${PROJECT}\ Configuration/${CHIP_ID}${SUB_ID}_FLASH.ld
-CFLAGS+=-mlong-calls 
-CFLAGS+=--specs=nano.specs --specs=nosys.specs
-
-CFLAGS+= \
+CFLAGS_INCLUDE=\
+	-I./${PROJECT}/ \
+	-I./${PROJECT}/Inc \
+	-I$(ST)/Inc \
+	-I$(CMSIS)/Include \
+	-I$(CMSIS)/Device/ST/STM32F4xx/Include
+CFLAGS_DEFINE=\
 	-D ${CHIP_ID}xx \
 	-D USE_HAL_DRIVER \
 	-D "__weak = __attribute__((weak))" \
 	-D "__packed = __attribute__((__packed__))"
+CFLAGS_NANO_NEW_LIB=\
+	--specs=nano.specs --specs=nosys.specs 
+#============================================================================#
+include mks/board.mk
+CFLAGS=-O${OPT} -g -mlittle-endian -mthumb \
+	-mcpu=cortex-m4 \
+	-mfpu=fpv4-sp-d16 -mfloat-abi=hard \
+	-ffreestanding -Wall \
+	-Wl,-T,./${PROJECT}/Projects/TrueSTUDIO/${PROJECT}\ Configuration/${CHIP_ID}${SUB_ID}_FLASH.ld \
+	-mlong-calls \
+	${CFLAGS_INCLUDE} ${CFLAGS_DEFINE} ${CFLAGS_NANO_NEW_LIB} 
         
         
 LDFLAGS+= \
@@ -36,19 +43,13 @@ LDFLAGS+= \
 ARCH=CM4F
 
 #============================================================================#
-CFLAGS+=-I./${PROJECT}/
-CFLAGS+=-I./${PROJECT}/Inc
-CFLAGS+=-I$(ST)/Inc
-CFLAGS+=-I$(CMSIS)/Include
-CFLAGS+=-I$(CMSIS)/Device/ST/STM32F4xx/Include
+
 
 STARTUP=$(CMSIS)/Device/ST/STM32F4xx/Source/Templates/gcc/${STARTUP_NAME}.s
 
 SRC=\
-	$(CMSIS)/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c
-
-
-SRC +=./${PROJECT}/Src/main.c \
+	$(CMSIS)/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c \
+	./${PROJECT}/Src/main.c \
 	./${PROJECT}/Src/i2c.c \
 	./${PROJECT}/Src/fmc.c \
 	./${PROJECT}/Src/gpio.c \
