@@ -64,7 +64,7 @@ SRC +=./${PROJECT}/Src/main.c \
 #============================================================================#
 
 #Make all
-all:$(BIN_IMAGE)
+all:$(BIN_IMAGE) libSTM32F4_CUBE
 
 $(BIN_IMAGE):$(EXECUTABLE)
 	@$(OBJCOPY) -O binary $^ $@
