@@ -1,7 +1,7 @@
 /**
   ******************************************************************************
   * File Name          : main.c
-  * Date               : 12/05/2014 11:11:52
+  * Date               : 16/05/2014 23:19:37
   * Description        : Main program body
   ******************************************************************************
   *
@@ -38,7 +38,6 @@
 #include "i2c.h"
 #include "ltdc.h"
 #include "spi.h"
-#include "tim.h"
 #include "usb_otg.h"
 #include "gpio.h"
 
@@ -76,7 +75,6 @@ int main(void)
   MX_I2C3_Init();
   MX_LTDC_Init();
   MX_SPI5_Init();
-  MX_TIM9_Init();
   MX_USB_OTG_HS_USB_Init();
 
   /* USER CODE BEGIN 2 */
@@ -95,7 +93,7 @@ int main(void)
   }
 	return 0;
   /* USER CODE END 3 */
-  
+
 }
 
 /** System Clock Configuration

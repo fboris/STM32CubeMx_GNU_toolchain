@@ -1,9 +1,9 @@
 /**
   ******************************************************************************
-  * File Name          : USB_OTG.c
-  * Date               : 21/05/2014 15:07:55
+  * File Name          : ADC.c
+  * Date               : 21/05/2014 15:07:52
   * Description        : This file provides code for the configuration
-  *                      of the USB_OTG instances.
+  *                      of the ADC instances.
   ******************************************************************************
   *
   * COPYRIGHT(c) 2014 STMicroelectronics
@@ -34,7 +34,7 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-#include "usb_otg.h"
+#include "adc.h"
 
 #include "gpio.h"
 
@@ -42,72 +42,85 @@
 
 /* USER CODE END 0 */
 
-PCD_HandleTypeDef hpcd_USB_OTG_FS;
+ADC_HandleTypeDef hadc1;
 
-/* USB_OTG_FS init function */
-
-void MX_USB_OTG_FS_PCD_Init(void)
+/* ADC1 init function */
+void MX_ADC1_Init(void)
 {
 
-  hpcd_USB_OTG_FS.Instance = USB_OTG_FS;
-  hpcd_USB_OTG_FS.Init.dev_endpoints = 7;
-  hpcd_USB_OTG_FS.Init.speed = PCD_SPEED_FULL;
-  hpcd_USB_OTG_FS.Init.dma_enable = DISABLE;
-  hpcd_USB_OTG_FS.Init.ep0_mps = DEP0CTL_MPS_64;
-  hpcd_USB_OTG_FS.Init.phy_itface = PCD_PHY_EMBEDDED;
-  hpcd_USB_OTG_FS.Init.Sof_enable = DISABLE;
-  hpcd_USB_OTG_FS.Init.low_power_enable = ENABLE;
-  hpcd_USB_OTG_FS.Init.vbus_sensing_enable = DISABLE;
-  hpcd_USB_OTG_FS.Init.use_dedicated_ep1 = DISABLE;
-  hpcd_USB_OTG_FS.Init.use_external_vbus = DISABLE;
-  HAL_PCD_Init(&hpcd_USB_OTG_FS);
+  ADC_ChannelConfTypeDef sConfig;
+  ADC_MultiModeTypeDef multimode;
+
+    /**Configure the global features of the ADC (Clock, Resolution, Data Alignment and number of conversion) 
+    */
+  hadc1.Instance = ADC1;
+  hadc1.Init.ClockPrescaler = ADC_CLOCKPRESCALER_PCLK_DIV2;
+  hadc1.Init.Resolution = ADC_RESOLUTION12b;
+  hadc1.Init.ScanConvMode = DISABLE;
+  hadc1.Init.ContinuousConvMode = DISABLE;
+  hadc1.Init.DiscontinuousConvMode = DISABLE;
+  hadc1.Init.NbrOfDiscConversion = 1;
+  hadc1.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
+  hadc1.Init.DataAlign = ADC_DATAALIGN_RIGHT;
+  hadc1.Init.NbrOfConversion = 1;
+  hadc1.Init.DMAContinuousRequests = DISABLE;
+  hadc1.Init.EOCSelection = EOC_SINGLE_CONV;
+  HAL_ADC_Init(&hadc1);
+
+    /**Configure for the selected ADC regular channel its corresponding rank in the sequencer and its sample time. 
+    */
+  sConfig.Channel = ADC_CHANNEL_11;
+  sConfig.Rank = 1;
+  sConfig.SamplingTime = ADC_SAMPLETIME_3CYCLES;
+  HAL_ADC_ConfigChannel(&hadc1, &sConfig);
+
+    /**Configure the ADC multi-mode 
+    */
+  multimode.Mode = ADC_MODE_INDEPENDENT;
+  multimode.TwoSamplingDelay = ADC_TWOSAMPLINGDELAY_5CYCLES;
+  HAL_ADCEx_MultiModeConfigChannel(&hadc1, &multimode);
 
 }
 
-void HAL_PCD_MspInit(PCD_HandleTypeDef* hpcd)
+void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc)
 {
 
   GPIO_InitTypeDef GPIO_InitStruct;
-  if(hpcd->Instance==USB_OTG_FS)
+  if(hadc->Instance==ADC1)
   {
     /* Peripheral clock enable */
-    __USB_OTG_FS_CLK_ENABLE();
+    __ADC1_CLK_ENABLE();
   
-    /**USB_OTG_FS GPIO Configuration    
-    PA11     ------> USB_OTG_FS_DM
-    PA12     ------> USB_OTG_FS_DP 
+    /**ADC1 GPIO Configuration    
+    PC0     ------> ADC1_IN10
+    PC1     ------> ADC1_IN11
+    PC2     ------> ADC1_IN12
+    PC3     ------> ADC1_IN13 
     */
-    GPIO_InitStruct.Pin = GPIO_PIN_11|GPIO_PIN_12;
-    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3;
+    GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_InitStruct.Speed = GPIO_SPEED_LOW;
-    GPIO_InitStruct.Alternate = GPIO_AF10_OTG_FS;
-    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+    HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-    /* Peripheral interrupt init*/
-    /* Sets the priority grouping field */
-    HAL_NVIC_SetPriorityGrouping(NVIC_PRIORITYGROUP_0);
-    HAL_NVIC_SetPriority(OTG_FS_IRQn, 0, 0);
-    HAL_NVIC_EnableIRQ(OTG_FS_IRQn);
   }
 }
 
-void HAL_PCD_MspDeInit(PCD_HandleTypeDef* hpcd)
+void HAL_ADC_MspDeInit(ADC_HandleTypeDef* hadc)
 {
 
-  if(hpcd->Instance==USB_OTG_FS)
+  if(hadc->Instance==ADC1)
   {
     /* Peripheral clock disable */
-    __USB_OTG_FS_CLK_DISABLE();
+    __ADC1_CLK_DISABLE();
   
-    /**USB_OTG_FS GPIO Configuration    
-    PA11     ------> USB_OTG_FS_DM
-    PA12     ------> USB_OTG_FS_DP 
+    /**ADC1 GPIO Configuration    
+    PC0     ------> ADC1_IN10
+    PC1     ------> ADC1_IN11
+    PC2     ------> ADC1_IN12
+    PC3     ------> ADC1_IN13 
     */
-    HAL_GPIO_DeInit(GPIOA, GPIO_PIN_11|GPIO_PIN_12);
+    HAL_GPIO_DeInit(GPIOC, GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3);
 
-    /* Peripheral interrupt Deinit*/
-    HAL_NVIC_DisableIRQ(OTG_FS_IRQn);
   }
 } 
 

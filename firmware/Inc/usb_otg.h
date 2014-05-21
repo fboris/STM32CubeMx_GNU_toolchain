@@ -1,7 +1,7 @@
 /**
   ******************************************************************************
   * File Name          : USB_OTG.h
-  * Date               : 16/05/2014 23:19:37
+  * Date               : 21/05/2014 15:07:56
   * Description        : This file provides code for the configuration
   *                      of the USB_OTG instances.
   ******************************************************************************
@@ -42,7 +42,9 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
 
-void MX_USB_OTG_HS_USB_Init(void);
+extern PCD_HandleTypeDef hpcd_USB_OTG_FS;
+
+void MX_USB_OTG_FS_PCD_Init(void);
 
 #ifdef __cplusplus
 }

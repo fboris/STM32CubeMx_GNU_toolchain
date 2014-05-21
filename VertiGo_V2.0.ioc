@@ -1,5 +1,5 @@
 #MicroXplorer Configuration settings - do not modify
-#Wed May 21 15:07:41 CST 2014
+#Mon May 05 17:14:40 CST 2014
 ADC1.Channel-0\#ChannelRegularConversion=ADC_CHANNEL_11
 ADC1.IPParameters=Channel-0\#ChannelRegularConversion,NbrOfConversionFlag,Rank-0\#ChannelRegularConversion,SamplingTime-0\#ChannelRegularConversion,master
 ADC1.NbrOfConversionFlag=1
@@ -237,26 +237,10 @@ PH0/OSC_IN.Mode=HSE-External-Oscillator
 PH0/OSC_IN.Signal=RCC_OSC_IN
 PH1/OSC_OUT.Mode=HSE-External-Oscillator
 PH1/OSC_OUT.Signal=RCC_OSC_OUT
-ProjectManager.AskForMigrate=true
-ProjectManager.BackupPrevious=true
-ProjectManager.CompilerOptimize=2
-ProjectManager.ComputerToolchain=false
-ProjectManager.CoupleFile=true
-ProjectManager.DeletePrevious=true
-ProjectManager.DeviceId=STM32F427VITx
-ProjectManager.FirmwarePackage=STM32Cube FW_F4 V1.1.0
-ProjectManager.FreePins=false
-ProjectManager.KeepUserCode=true
-ProjectManager.LastFirmware=false
-ProjectManager.LibraryCopy=0
-ProjectManager.ProjectBuild=false
-ProjectManager.ProjectFileName=firmware.ioc
-ProjectManager.ProjectName=firmware
-ProjectManager.TargetToolchain=TrueSTUDIO 4.3.1
 RCC.FamilyName=M
 RCC.HSE_VALUE=25000000
 RCC.HSI_VALUE=16000000
-RCC.IPParameters=AHBFreq_Value,RTCHSEDivFreq_Value,APB2Freq_Value,VCOInputFreq_Value,48MHZClocksFreq_Value,SYSCLKFreq_VALUE,VCOSAIOutputFreq_Value,VCOI2SOutputFreq_Value,I2SClocksFreq_Value,RTCFreq_Value,LSI_VALUE,APB1Freq_Value,HSI_VALUE,HSE_VALUE,LSE_VALUE,PLLCLKFreq_Value,FamilyName,VCOOutputFreq_Value
+RCC.IPParameters=AHBFreq_Value,APB2Freq_Value,RTCHSEDivFreq_Value,VCOInputFreq_Value,48MHZClocksFreq_Value,SYSCLKFreq_VALUE,VCOI2SOutputFreq_Value,RTCFreq_Value,VCOSAIOutputFreq_Value,I2SClocksFreq_Value,LSI_VALUE,APB1Freq_Value,HSI_VALUE,HSE_VALUE,LSE_VALUE,PLLCLKFreq_Value,FamilyName,VCOOutputFreq_Value
 RCC.LSE_VALUE=32768
 RCC.LSI_VALUE=32000
 SH.ADCx_IN10.0=ADC1_IN10,IN10

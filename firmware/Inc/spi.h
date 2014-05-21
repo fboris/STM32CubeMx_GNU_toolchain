@@ -1,7 +1,7 @@
 /**
   ******************************************************************************
   * File Name          : SPI.h
-  * Date               : 16/05/2014 23:19:36
+  * Date               : 21/05/2014 15:07:53
   * Description        : This file provides code for the configuration
   *                      of the SPI instances.
   ******************************************************************************
@@ -42,9 +42,13 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
 
-extern SPI_HandleTypeDef hspi5;
+extern SPI_HandleTypeDef hspi1;
+extern SPI_HandleTypeDef hspi2;
+extern SPI_HandleTypeDef hspi4;
 
-void MX_SPI5_Init(void);
+void MX_SPI1_Init(void);
+void MX_SPI2_Init(void);
+void MX_SPI4_Init(void);
 
 #ifdef __cplusplus
 }

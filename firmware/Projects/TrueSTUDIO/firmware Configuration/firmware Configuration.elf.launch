@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="com.atollic.hardwaredebug.launch.launchConfigurationType">
 <stringAttribute key="com.atollic.hardwaredebug.jlink_common.cpu_core" value="Cortex-M"/>
-<stringAttribute key="com.atollic.hardwaredebug.jlink_common.device" value="STM32F429ZI"/>
+<stringAttribute key="com.atollic.hardwaredebug.jlink_common.device" value="STM32F427VI"/>
 <stringAttribute key="com.atollic.hardwaredebug.jlink_common.endian" value="little"/>
 <stringAttribute key="com.atollic.hardwaredebug.jlink_common.init_speed" value="4000"/>
 <booleanAttribute key="com.atollic.hardwaredebug.jlink_common.scan_chain_auto" value="true"/>

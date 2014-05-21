@@ -1,7 +1,7 @@
 /**
   ******************************************************************************
   * @file    stm32f4xx_it.c
-  * @date    16/05/2014 23:19:37
+  * @date    21/05/2014 15:07:56
   * @brief   Interrupt Service Routines.
   ******************************************************************************
   *
@@ -38,9 +38,20 @@
 
 /* External variables --------------------------------------------------------*/
 
+extern PCD_HandleTypeDef hpcd_USB_OTG_FS;
+
 /******************************************************************************/
 /*            Cortex-M4 Processor Interruption and Exception Handlers         */ 
 /******************************************************************************/
+
+/**
+* @brief This function handles USB On The Go FS global interrupt.
+*/
+void OTG_FS_IRQHandler(void)
+{
+  HAL_NVIC_ClearPendingIRQ(OTG_FS_IRQn);
+  HAL_PCD_IRQHandler(&hpcd_USB_OTG_FS);
+}
 
 /**
 * @brief This function handles System tick timer.

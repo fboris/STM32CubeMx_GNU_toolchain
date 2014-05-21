@@ -1,9 +1,9 @@
 /**
   ******************************************************************************
-  * File Name          : FMC.h
-  * Date               : 16/05/2014 23:19:35
+  * File Name          : ADC.h
+  * Date               : 21/05/2014 15:07:52
   * Description        : This file provides code for the configuration
-  *                      of the FMC peripheral.
+  *                      of the ADC instances.
   ******************************************************************************
   *
   * COPYRIGHT(c) 2014 STMicroelectronics
@@ -33,25 +33,23 @@
   ******************************************************************************
   */
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __FMC_H
-#define __FMC_H
+#ifndef __adc_H
+#define __adc_H
 #ifdef __cplusplus
  extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
-#include "stm32f4xx_hal_conf.h"
+#include "stm32f4xx_hal.h"
 
-extern SDRAM_HandleTypeDef hsdram1;
+extern ADC_HandleTypeDef hadc1;
 
-void MX_FMC_Init(void);
-void HAL_SDRAM_MspInit(SDRAM_HandleTypeDef* hsdram);
-void HAL_SDRAM_MspDeInit(SDRAM_HandleTypeDef* hsdram);
+void MX_ADC1_Init(void);
 
 #ifdef __cplusplus
 }
 #endif
-#endif /*__FMC_H */
+#endif /*__ adc_H */
 
 /**
   * @}

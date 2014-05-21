@@ -1,9 +1,9 @@
 /**
   ******************************************************************************
-  * File Name          : USB_OTG.c
-  * Date               : 21/05/2014 15:07:55
+  * File Name          : CAN.c
+  * Date               : 21/05/2014 15:07:52
   * Description        : This file provides code for the configuration
-  *                      of the USB_OTG instances.
+  *                      of the CAN instances.
   ******************************************************************************
   *
   * COPYRIGHT(c) 2014 STMicroelectronics
@@ -34,7 +34,7 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-#include "usb_otg.h"
+#include "can.h"
 
 #include "gpio.h"
 
@@ -42,72 +42,116 @@
 
 /* USER CODE END 0 */
 
-PCD_HandleTypeDef hpcd_USB_OTG_FS;
+CAN_HandleTypeDef hcan1;
+CAN_HandleTypeDef hcan2;
 
-/* USB_OTG_FS init function */
-
-void MX_USB_OTG_FS_PCD_Init(void)
+/* CAN1 init function */
+void MX_CAN1_Init(void)
 {
 
-  hpcd_USB_OTG_FS.Instance = USB_OTG_FS;
-  hpcd_USB_OTG_FS.Init.dev_endpoints = 7;
-  hpcd_USB_OTG_FS.Init.speed = PCD_SPEED_FULL;
-  hpcd_USB_OTG_FS.Init.dma_enable = DISABLE;
-  hpcd_USB_OTG_FS.Init.ep0_mps = DEP0CTL_MPS_64;
-  hpcd_USB_OTG_FS.Init.phy_itface = PCD_PHY_EMBEDDED;
-  hpcd_USB_OTG_FS.Init.Sof_enable = DISABLE;
-  hpcd_USB_OTG_FS.Init.low_power_enable = ENABLE;
-  hpcd_USB_OTG_FS.Init.vbus_sensing_enable = DISABLE;
-  hpcd_USB_OTG_FS.Init.use_dedicated_ep1 = DISABLE;
-  hpcd_USB_OTG_FS.Init.use_external_vbus = DISABLE;
-  HAL_PCD_Init(&hpcd_USB_OTG_FS);
+  hcan1.Instance = CAN1;
+  hcan1.Init.Prescaler = 16;
+  hcan1.Init.Mode = CAN_MODE_NORMAL;
+  hcan1.Init.SJW = CAN_SJW_1TQ;
+  hcan1.Init.BS1 = CAN_BS1_1TQ;
+  hcan1.Init.BS2 = CAN_BS2_1TQ;
+  hcan1.Init.TTCM = DISABLE;
+  hcan1.Init.ABOM = DISABLE;
+  hcan1.Init.AWUM = DISABLE;
+  hcan1.Init.NART = DISABLE;
+  hcan1.Init.RFLM = DISABLE;
+  hcan1.Init.TXFP = DISABLE;
+  HAL_CAN_Init(&hcan1);
+
+}
+/* CAN2 init function */
+void MX_CAN2_Init(void)
+{
+
+  hcan2.Instance = CAN2;
+  hcan2.Init.Prescaler = 16;
+  hcan2.Init.Mode = CAN_MODE_NORMAL;
+  hcan2.Init.SJW = CAN_SJW_1TQ;
+  hcan2.Init.BS1 = CAN_BS1_1TQ;
+  hcan2.Init.BS2 = CAN_BS2_1TQ;
+  hcan2.Init.TTCM = DISABLE;
+  hcan2.Init.ABOM = DISABLE;
+  hcan2.Init.AWUM = DISABLE;
+  hcan2.Init.NART = DISABLE;
+  hcan2.Init.RFLM = DISABLE;
+  hcan2.Init.TXFP = DISABLE;
+  HAL_CAN_Init(&hcan2);
 
 }
 
-void HAL_PCD_MspInit(PCD_HandleTypeDef* hpcd)
+void HAL_CAN_MspInit(CAN_HandleTypeDef* hcan)
 {
 
   GPIO_InitTypeDef GPIO_InitStruct;
-  if(hpcd->Instance==USB_OTG_FS)
+  if(hcan->Instance==CAN1)
   {
     /* Peripheral clock enable */
-    __USB_OTG_FS_CLK_ENABLE();
+    __CAN1_CLK_ENABLE();
   
-    /**USB_OTG_FS GPIO Configuration    
-    PA11     ------> USB_OTG_FS_DM
-    PA12     ------> USB_OTG_FS_DP 
+    /**CAN1 GPIO Configuration    
+    PD0     ------> CAN1_RX
+    PD1     ------> CAN1_TX 
     */
-    GPIO_InitStruct.Pin = GPIO_PIN_11|GPIO_PIN_12;
+    GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_1;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_LOW;
-    GPIO_InitStruct.Alternate = GPIO_AF10_OTG_FS;
-    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+    GPIO_InitStruct.Alternate = GPIO_AF9_CAN1;
+    HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 
-    /* Peripheral interrupt init*/
-    /* Sets the priority grouping field */
-    HAL_NVIC_SetPriorityGrouping(NVIC_PRIORITYGROUP_0);
-    HAL_NVIC_SetPriority(OTG_FS_IRQn, 0, 0);
-    HAL_NVIC_EnableIRQ(OTG_FS_IRQn);
+  }
+  else if(hcan->Instance==CAN2)
+  {
+    /* Peripheral clock enable */
+    __CAN2_CLK_ENABLE();
+    __CAN1_CLK_ENABLE();
+  
+    /**CAN2 GPIO Configuration    
+    PB5     ------> CAN2_RX
+    PB6     ------> CAN2_TX 
+    */
+    GPIO_InitStruct.Pin = GPIO_PIN_5|GPIO_PIN_6;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_LOW;
+    GPIO_InitStruct.Alternate = GPIO_AF9_CAN2;
+    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
   }
 }
 
-void HAL_PCD_MspDeInit(PCD_HandleTypeDef* hpcd)
+void HAL_CAN_MspDeInit(CAN_HandleTypeDef* hcan)
 {
 
-  if(hpcd->Instance==USB_OTG_FS)
+  if(hcan->Instance==CAN1)
   {
     /* Peripheral clock disable */
-    __USB_OTG_FS_CLK_DISABLE();
+    __CAN1_CLK_DISABLE();
   
-    /**USB_OTG_FS GPIO Configuration    
-    PA11     ------> USB_OTG_FS_DM
-    PA12     ------> USB_OTG_FS_DP 
+    /**CAN1 GPIO Configuration    
+    PD0     ------> CAN1_RX
+    PD1     ------> CAN1_TX 
     */
-    HAL_GPIO_DeInit(GPIOA, GPIO_PIN_11|GPIO_PIN_12);
+    HAL_GPIO_DeInit(GPIOD, GPIO_PIN_0|GPIO_PIN_1);
 
-    /* Peripheral interrupt Deinit*/
-    HAL_NVIC_DisableIRQ(OTG_FS_IRQn);
+  }
+  else if(hcan->Instance==CAN2)
+  {
+    /* Peripheral clock disable */
+    __CAN2_CLK_DISABLE();
+    __CAN1_CLK_DISABLE();
+  
+    /**CAN2 GPIO Configuration    
+    PB5     ------> CAN2_RX
+    PB6     ------> CAN2_TX 
+    */
+    HAL_GPIO_DeInit(GPIOB, GPIO_PIN_5|GPIO_PIN_6);
+
   }
 } 
 

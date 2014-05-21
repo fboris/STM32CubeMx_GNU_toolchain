@@ -1,9 +1,9 @@
 /**
   ******************************************************************************
-  * File Name          : SPI.h
-  * Date               : 16/05/2014 23:19:36
+  * File Name          : CAN.h
+  * Date               : 21/05/2014 15:07:52
   * Description        : This file provides code for the configuration
-  *                      of the SPI instances.
+  *                      of the CAN instances.
   ******************************************************************************
   *
   * COPYRIGHT(c) 2014 STMicroelectronics
@@ -33,8 +33,8 @@
   ******************************************************************************
   */
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __spi_H
-#define __spi_H
+#ifndef __can_H
+#define __can_H
 #ifdef __cplusplus
  extern "C" {
 #endif
@@ -42,14 +42,16 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
 
-extern SPI_HandleTypeDef hspi5;
+extern CAN_HandleTypeDef hcan1;
+extern CAN_HandleTypeDef hcan2;
 
-void MX_SPI5_Init(void);
+void MX_CAN1_Init(void);
+void MX_CAN2_Init(void);
 
 #ifdef __cplusplus
 }
 #endif
-#endif /*__ spi_H */
+#endif /*__ can_H */
 
 /**
   * @}
