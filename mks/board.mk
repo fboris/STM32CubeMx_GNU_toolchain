@@ -1,4 +1,4 @@
 #board definition
-CHIP_ID=STM32F429
-SUB_ID=ZI
-STARTUP_NAME=startup_stm32f429xx
+CHIP_ID=STM32F427
+SUB_ID=VI
+STARTUP_NAME=startup_stm32f427xx
