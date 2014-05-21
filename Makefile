@@ -11,13 +11,9 @@ OBJCOPY=arm-none-eabi-objcopy
 GDB=arm-none-eabi-gdb
 CMSIS=./${PROJECT}/Drivers/CMSIS
 ST=./${PROJECT}/Drivers/STM32F4xx_HAL_Driver
-#board definition
-CHIP_ID=STM32F429
-SUB_ID=ZI
-STARTUP_NAME=startup_stm32f429xx
 OPT=0
 #============================================================================#
-
+include mks/board.mk
 CFLAGS=-O${OPT} -g -mlittle-endian -mthumb
 CFLAGS+=-mcpu=cortex-m4
 CFLAGS+=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
@@ -64,7 +60,7 @@ SRC +=./${PROJECT}/Src/main.c \
 #============================================================================#
 
 #Make all
-all:$(BIN_IMAGE) libSTM32F4_CUBE
+all:libSTM32F4_CUBE $(BIN_IMAGE) 
 
 $(BIN_IMAGE):$(EXECUTABLE)
 	@$(OBJCOPY) -O binary $^ $@

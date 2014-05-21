@@ -6,9 +6,7 @@ RANLIB = arm-none-eabi-ranlib
 CMSIS=../${PROJECT}/Drivers/CMSIS
 ST=../${PROJECT}/Drivers/STM32F4xx_HAL_Driver
 
-#board definition
-CHIP_ID=STM32F429
-SUB_ID=ZI
+include ../mks/board.mk
 #============================================================================
 
 CFLAGS=-g -mlittle-endian -mthumb
@@ -24,7 +22,7 @@ CFLAGS+=-I$(CMSIS)/Include
 CFLAGS+=-I$(CMSIS)/Device/ST/STM32F4xx/Include
 CFLAGS+=-I../${PROJECT}/Inc
 CFLAGS+= \
-	-D STM32F429xx \
+	-D ${CHIP_ID}xx \
 	-D USE_HAL_DRIVER
 SRCS = \
 ${ST}/Src/stm32f4xx_hal_adc.c \
