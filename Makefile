@@ -70,7 +70,7 @@ $(BIN_IMAGE):$(EXECUTABLE)
 	@$(OBJCOPY) -O binary $^ $@
 	@echo '    OBJCOPY $(BIN_IMAGE)'
 
-STARTUP_OBJ = startup_stm32f429xx.o
+STARTUP_OBJ = ${STARTUP_NAME}.o
 
 $(STARTUP_OBJ): $(STARTUP)
 	@$(CC) $(CFLAGS) $^ -c $(STARTUP)
@@ -95,15 +95,15 @@ flash:
 
 #Make openocd
 openocd: flash
-	openocd -s /opt/openocd/share/openocd/scripts/ -f ./debug/openocd.cfg
+	openocd -s /opt/openocd/share/openocd/scripts/ -f ./openocd.cfg
 
 #Make cgdb
 cgdb:
-	cgdb -d $(GDB) -x ./debug/openocd_gdb.gdb
+	cgdb -d $(GDB) -x ./openocd_gdb.gdb
 
 #Make gdbtui
 gdbtui:
-	$(GDB) -tui -x ./debug/openocd_gdb.gdb
+	$(GDB) -tui -x ./openocd_gdb.gdb
 
 #Make gdbauto
 gdbauto: cgdb
