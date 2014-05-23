@@ -49,16 +49,7 @@ STARTUP=$(CMSIS)/Device/ST/STM32F4xx/Source/Templates/gcc/${STARTUP_NAME}.s
 
 SRC=\
 	$(CMSIS)/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c \
-	./${PROJECT}/Src/main.c \
-	./${PROJECT}/Src/i2c.c \
-	./${PROJECT}/Src/gpio.c \
-	./${PROJECT}/Src/spi.c \
-	./${PROJECT}/Src/stm32f4xx_it.c \
-	./${PROJECT}/Src/usb_otg.c \
-	./${PROJECT}/Src/tim.c \
-	./${PROJECT}/Src/can.c \
-	./${PROJECT}/Src/usart.c \
-	./${PROJECT}/Src/adc.c
+	$(wildcard ./${PROJECT}/Src/*.c)
 #============================================================================#
 
 #Make all
