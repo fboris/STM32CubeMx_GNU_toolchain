@@ -18,6 +18,8 @@ CFLAGS_INCLUDE=\
 	-I$(ST)/Inc \
 	-I$(CMSIS)/Include \
 	-I$(CMSIS)/Device/ST/STM32F4xx/Include
+CFLAGS_DEBUG=\
+	-g
 CFLAGS_DEFINE=\
 	-D ${CHIP_ID}xx \
 	-D USE_HAL_DRIVER \
@@ -27,13 +29,13 @@ CFLAGS_NANO_NEW_LIB=\
 	--specs=nano.specs --specs=nosys.specs 
 #============================================================================#
 include mks/board.mk
-CFLAGS=-O${OPT} -g -mlittle-endian -mthumb \
+CFLAGS=-O${OPT} -mlittle-endian -mthumb \
 	-mcpu=cortex-m4 \
 	-mfpu=fpv4-sp-d16 -mfloat-abi=hard \
 	-ffreestanding -Wall \
 	-Wl,-T,./${PROJECT}/Projects/TrueSTUDIO/${PROJECT}\ Configuration/${CHIP_ID}${SUB_ID}_FLASH.ld \
 	-mlong-calls \
-	${CFLAGS_INCLUDE} ${CFLAGS_DEFINE} ${CFLAGS_NANO_NEW_LIB} 
+	${CFLAGS_INCLUDE} ${CFLAGS_DEFINE} ${CFLAGS_NANO_NEW_LIB} ${CFLAGS_DEBUG}
         
         
 LDFLAGS+= \
@@ -53,7 +55,7 @@ SRC=\
 #============================================================================#
 
 #Make all
-all:libSTM32F4_CUBE $(BIN_IMAGE) 
+all:lib $(BIN_IMAGE) 
 
 $(BIN_IMAGE):$(EXECUTABLE)
 	@$(OBJCOPY) -O binary $^ $@
@@ -68,9 +70,9 @@ $(STARTUP_OBJ): $(STARTUP)
 $(EXECUTABLE):$(SRC) $(STARTUP_OBJ)
 	@$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
 	@echo '    CC $(EXECUTABLE)'
-libSTM32F4_CUBE:
+lib:
 	$(MAKE) -C ./Build
-clean_libSTM32F4_CUBE:
+clean_lib:
 	$(MAKE) -C ./Build clean
 #Make clean
 clean:
@@ -101,4 +103,4 @@ astyle:
 	astyle -r --exclude=lib  *.c *.h
 #============================================================================#
 
-.PHONY:all clean flash openocd gdbauto gdbtui cgdb astyle libSTM32F4_CUBE clean_libSTM32F4_CUBE
+.PHONY:all clean flash openocd gdbauto gdbtui cgdb astyle lib clean_lib
