@@ -16,10 +16,10 @@ CFLAGS=-g -mlittle-endian -mthumb \
 	-mlong-calls \
 	-nostdlib \
 	-O1 \
+	-I./ \
 	-I$(ST)/Inc \
 	-I$(CMSIS)/Include \
 	-I$(CMSIS)/Device/ST/STM32F4xx/Include \
-	-I../${PROJECT}/Inc \
  	\
 	-D ${CHIP_ID}xx \
 	-D USE_HAL_DRIVER
